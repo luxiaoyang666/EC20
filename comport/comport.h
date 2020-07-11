@@ -55,7 +55,5 @@ int comport_recv(ComportAttr *comport,char *rbuf,int rbuf_len,int timeout);
 int comport_close(ComportAttr *comport);
 
 
-
-
 #endif   /* ----- #ifndef _COMPORT_H_  ----- */
 
