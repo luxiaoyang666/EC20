@@ -1,17 +1,10 @@
 (CC) = gcc
 
-comport: comport.c ComportOpen.o ComportInit.o ComportSwap.o ComportSwap.o
-	$(CC) comport.c ComportOpen.o ComportInit.o ComportSwap.o -o comport -Werror -Wall
+comport: comport.c comport_main.o
+	$(CC) comport.c comport_main.o -o comport -Werror -Wall
 
-ComportOpen.o: ComportOpen.c
-	$(CC) -c ComportOpen.c
-
-ComportInit.o: ComportInit.c
-	$(CC) -c ComportInit.c
-
-ComportSwap.o: ComportSwap.c
-	$(CC) -c ComportSwap.c
-
+comport_main.o: comport_main.c
+	$(CC) -c comport_main.c
 
 clear:
 	rm *.o comport
