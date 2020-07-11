@@ -8,7 +8,7 @@
  *        Version:  1.0.0(09/07/20)
  *         Author:  LuXiaoyang <920916829@qq.com>
  *      ChangeLog:  1, Release initial version on "09/07/20 09:04:41"
- *                 a
+ *
  ********************************************************************************/
 #include "comport.h"
 
