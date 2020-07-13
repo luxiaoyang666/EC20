@@ -83,7 +83,7 @@ int Processing_center_number(char *center_number)
     strcat(head,center_number);
     strcpy(center_number,head);
 
-    return -1;
+    return 0;
 }   
 
 /* UTF-8 -> Unicode , LSB */
@@ -261,7 +261,7 @@ int pdu_encod(char *sms_buf,char *center_number,char *phone_number,char *pdu_buf
 
     strcpy(pdu_buf,center_number);
 
-    if(1)
+    if(0)
         printf("cmgs:%d\npdu:%s\n",*val_cmgs,pdu_buf);
 
     return 0;
