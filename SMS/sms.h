@@ -3,69 +3,51 @@
  *                  All rights reserved.
  *
  *       Filename:  comport.h
- *    Description:  This head file of comport
+ *    Description:  This head file of sms.c
  *
  *        Version:  1.0.0(09/07/20)
  *         Author:  LuXiaoyang <920916829@qq.com>
  *      ChangeLog:  1, Release initial version on "09/07/20 08:58:33"
  *                 
  ********************************************************************************/
-#ifndef  _COMPORT_H_
-#define  _COMPORT_H_
+#ifndef  _SMS_H_
+#define  _SMS_H_
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <termios.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <signal.h>
-#include <getopt.h>
-#include <strings.h>
+#include "comport.h"
+#include "PDU.h"
 
-#define SERIALNAME_LEN 128
-#define SMSLENTH       128
+#define CENTER_NUM_LEN 14
 
-typedef struct _st_SerialAttr {
 
-    int               fd;        //串口文件描述符
-    int               BaudRate;  //波特率
-    int               DataBits;  //数据位
-    char              Parity;    //奇偶校验位
-    int               StopBits;  //停止位
-    int               mSend_Len; //单次最大发送长度
-    char              SerialName[SERIALNAME_LEN];  //串口名称
-    struct termios    OldTermios;  //串口的原始属性
-}Serial_attr;
 
-/* 打开串口 */
-int comport_open(Serial_attr *attr);
 
-/* 关闭串口 */
-int comport_close(Serial_attr *attr);
+/* Send AT Commond(comport_send plus) */
+int send_at_cmd(ComportAttr *comport,char *atcmd,char *expected_recv,char *rmsg,int msgsize,int timeout);
 
-/* 初始化串口 */
-int comport_init(Serial_attr *attr);
+/* Check if the serial port can communicate */
+int check_comport_ready(ComportAttr *comport);
 
-/* 向串口发送指令 */
-int comport_send(Serial_attr *attr,char *sbuf,int sbuf_len);
+/* Check if the module can recognize the SIM card */
+int check_if_there_is_sim(ComportAttr *comport);
 
-/* 接收串口指令 */
-int comport_recv(Serial_attr *attr,char *rbuf,int rbuf_len,int timeout);
+/* Check the SIM card registration */
+int check_sim_login(ComportAttr *comport);
 
-/* 发送TEXT格式短信 */
-int text_sms(Serial_attr *attr,char *sms_buf,char *phone_num);
+/* Check the SIM card signal strength */
+int check_sim_signal(ComportAttr *comport);
+
+/* Use the above function to check whether the SIM card is ready to be used */
+int check_sim_allready(ComportAttr *comport);
+
+/* Get SMS Center Number of the SIM Card */
+int get_sms_center_number(ComportAttr *comport,char *center_number);
+
+/* Send TEXT Message */
+int text_sms_send(ComportAttr *comport,char *sms_buf,char *phone_number);
+
+/* Send PDU message */
+int pdu_sms_send(ComportAttr *comport,char *sms_buf,char *phone_number);
+
 
 #endif   /*   ----- #ifndef _COMPORT_H_  ----- */
-
-
-
-
-
-
 
