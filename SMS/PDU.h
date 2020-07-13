@@ -17,24 +17,26 @@
 #include <string.h>
 #include <iconv.h>
 #include <stdlib.h>
-#include "comport.h"
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
 
-/* 字节流转字符流 */
-void Hex2Str( const char *sSrc,  char *sDest, int nSrcLen );
 
-/* UTF8 转 Unicode */
+
+/* Convert byte stream data to a string */
+int Hex2Str(const char *sSrc,char *sDest,int nSrcLen);
+
+/* UTF8 -> Unicode */
 int utf8_to_unicode(char* utf8_buf,char* unic_buf);
 
-/* 处理收件人电话号码 */
-void Handling_phone_number(char *phone_number);
+/* Process Recipient Number */
+int Process_phone_number(char *phone_number);
 
-/*  处理短信中心号码 */
-void Handling_center_number(char *center_number);
+/* Processing SMS Center Number */
+int Process_center_number(char *center_number);
 
-/* 发送PDU格式短信 */
-int  pdu_sms(Serial_attr attr,char *sms_buf,char *center_number,char *phone_number);
+/* PDU encoding */
+int pdu_encod(char *sms_buf,char *center_number,char *phone_number,char *pdu_buf,int *cmgs);
+
 
 #endif   /*  ----- #ifndef _PDU_H_  ----- */
